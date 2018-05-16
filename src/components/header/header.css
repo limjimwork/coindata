@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.head {
+    width: 100%;
+    background-color: #183152;
+    margin-bottom: 30px;
+}
+
+.logo {
+    float: left;
+    font-size: 2.4em;
+    color: #fff;
+    line-height: 2.4em;
+}
+
+.gnb {
+    float: right;
+}
+
+.gnb>li{
+    float: left;    
+    padding-top: 30px;
+    padding-left: 40px;
+}
+
+.gnb>li>a {
+    font-size: 1.5em;
+    color: #fff;
+}
+
+.gnb>li>a:hover, .gnb>li>a:focus {
+    color: #bbcfda;
+}

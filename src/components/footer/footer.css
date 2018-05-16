@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.foot {
+    margin-top: 30px;
+    width: 100%;
+    background-color: #183152;
+}
+
+.foot p {
+    color: #fff;
+    font-size: 1.1em;
+    padding: 30px 0;
+    text-align: center;
+    font-weight: 300;
+}
