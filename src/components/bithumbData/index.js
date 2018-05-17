@@ -46,13 +46,13 @@ class BithumbData extends Component{
                 ask: resp.data.data.asks.map((ask, idx)=>{
                     return {
                         price: ask.price,
-                        qty: ask.quantity
+                        qty: Number(ask.quantity).toFixed(4)
                     }
                 }),
                 bid: resp.data.data.bids.map((bid, idx)=>{
                     return {
                         price: bid.price,
-                        qty: bid.quantity
+                        qty: Number(bid.quantity).toFixed(4)
                     }
                 }),
                 isOrderbookLoading: false
