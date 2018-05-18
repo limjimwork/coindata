@@ -20,11 +20,14 @@ class CoinoneData extends Component{
             high: '',
             low: '',
             volume: '',
+            completeOrders: [],
             isOrderbookLoading: true,
-            isTickerLoading: true
+            isTickerLoading: true,
+            isTransactionLoading: true
         }
         this.orderbookInterval = null;
-        this.tickerInterval = null; 
+        this.tickerInterval = null;
+        this.transactionInterval = null;
     }
 
     onChangeCurrency = (curr) => {
@@ -82,16 +85,42 @@ class CoinoneData extends Component{
         })
     }
 
+    callTransaction = () => {
+        axios.get('https://api.coinone.co.kr/trades/',{
+            params: {
+                currency: this.state.currency
+            }
+        })
+
+        .then((resp)=>{
+            console.log(resp.data)
+            this.setState({
+                completeOrders: resp.data.completeOrders.reverse().slice(0, 10),
+                isTransactionLoading: false
+            })
+        })
+
+        .catch((error)=>{
+            console.log(error);
+            this.setState({
+                isTransactionLoadng: false
+            })
+        })
+    }
+
     componentDidMount(){
         this.callOrderBook();
         this.orderbookInterval = setInterval(this.callOrderBook, 5000);
         this.callTicker();
         this.tickerInterval = setInterval(this.callTicker, 5000);
+        this.callTransaction();
+        this.transactionInterval = setInterval(this.callTransaction, 5000);
     }
 
     componentWillUnmount(){
         clearInterval(this.orderbookInterval);
         clearInterval(this.tickerInterval);
+        clearInterval(this.transactionInterval);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot){
@@ -102,6 +131,9 @@ class CoinoneData extends Component{
             this.callTicker();
             clearInterval(this.tickerInterval);
             this.tickerInterval  = setInterval(this.callTicker, 5000);
+            this.callTransaction();
+            clearInterval(this.transactionInterval);
+            this.transactionInterval = setInterval(this.callTransaction, 5000);
         }
     }
 
@@ -115,11 +147,11 @@ class CoinoneData extends Component{
         }
 
         return(
-            !this.state.isOrderbookLoading && !this.state.isTickerLoading ?
+            !this.state.isOrderbookLoading && !this.state.isTickerLoading && !this.state.isTransactionLoading ?
             (
                 <div>
                     <CurrencyBar currencyList={currencyList} onChangeCurrency={this.onChangeCurrency}/>
-                    <CoinTable bids={this.state.bids} asks={this.state.asks} ticker={ticker} pathname={this.props.location.pathname}/>
+                    <CoinTable bids={this.state.bids} asks={this.state.asks} ticker={ticker} pathname={this.props.location.pathname} completeOrders={this.state.completeOrders}/>
                 </div>
             ):
             <div/>

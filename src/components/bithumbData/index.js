@@ -19,11 +19,14 @@ class BithumbData extends Component{
             max_price: '',
             min_price: '',
             closing_price: '',
+            completeOrders: [],
             isOrderbookLoading: true,
-            isTickerLoading: true
+            isTickerLoading: true,
+            isTransactionLoading: true
         }
-        this.orderbookInterval = null
-        this.tickerInterval = null
+        this.orderbookInterval = null;
+        this.tickerInterval = null;
+        this.transactionInterval = null;
     }
 
     onChangeCurrency = (curr) => {
@@ -89,16 +92,47 @@ class BithumbData extends Component{
         })
     }
 
+    callTransaction = () => {
+        axios.get(`https://api.bithumb.com/public/recent_transactions/${this.state.order_currency}`, {
+            params: {
+                count : 10
+            }
+        })
+
+        .then((resp)=>{
+            console.log(resp.data)
+            this.setState({
+                    completeOrders: resp.data.data.map((completeOrders, idx)=>{
+                        return {
+                            price: completeOrders.price,
+                            qty: completeOrders.units_traded
+                        }
+                    }),
+                isTransactionLoading: false
+            })
+        })
+
+        .catch((error)=>{
+            console.log(error);
+            this.setState({
+                isTransactionLoadng: false
+            })
+        })
+    }
+
     componentDidMount(){
         this.callOrderBook();
         this.orderbookInterval = setInterval(this.callOrderBook, 5000);
         this.callTicker();
         this.tickerInterval = setInterval(this.callTicker, 5000);
+        this.callTransaction();
+        this.transactionInterval = setInterval(this.callTransaction, 5000);
     }
 
     componentWillUnmount(){
         clearInterval(this.orderbookInterval);
         clearInterval(this.tickerInterval);
+        clearInterval(this.transactionInterval);
     }
 
     componentDidUpdate(prevProps, prevState, snapshot){
@@ -109,6 +143,9 @@ class BithumbData extends Component{
             this.callTicker();
             clearInterval(this.tickerInterval);
             this.tickerInterval = setInterval(this.callTicker, 5000);
+            this.callTransaction();
+            clearInterval(this.transactionInterval);
+            this.transactionInterval = setInterval(this.callTransaction, 5000);
         }
     }
 
@@ -122,12 +159,12 @@ class BithumbData extends Component{
         console.log(this.props.location.pathname)
 
         return(
-            !this.state.isOrderbookLoading && !this.state.isTickerLoading ?
+            !this.state.isOrderbookLoading && !this.state.isTickerLoading && !this.state.isTransactionLoading ?
             (
                 <div className="center">
                     <div>
                         <CurrencyBar currencyList={currencyList} onChangeCurrency={this.onChangeCurrency}/>
-                        <CoinTable asks={this.state.ask} bids={this.state.bid} ticker={ticker} pathname={this.props.location.pathname}/>
+                        <CoinTable asks={this.state.ask} bids={this.state.bid} ticker={ticker} pathname={this.props.location.pathname} completeOrders={this.state.completeOrders}/>
                     </div>
                 </div>
             ) :

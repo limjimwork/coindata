@@ -96,6 +96,12 @@ p.bidBlack {
   background-color: #eee;
 }
 
+.transaction:nth-child(2)>p {
+  font-weight: 300;
+  text-align: left;
+  text-indent: 10px;
+}
+
 /* @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

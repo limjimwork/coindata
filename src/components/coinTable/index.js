@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import CoinoneTicker from '../coinoneTicker';
 import BithumbTicker from '../bithumbTicker';
 
 class CoinTable extends Component{
 
     render(){
+        if (this.props.completeOrders === undefined){
+            return null;
+        }
 
         return(
             !!this.props.bids.length && !!this.props.asks.length &&
@@ -39,26 +42,22 @@ class CoinTable extends Component{
                                         <td className="blue"><p className="blue askBlack">{ask.qty}</p></td>
                                         <td className="blue"><p className="blue">{ask.price}</p></td>
                                     </tr>
-                                )
+                                );
                             })
-                        } 
+                        }
                         {
                             this.props.bids.map((bid, idx)=>{
-                                if (idx >= 10){
-                                    return null
-                                } else {
-                                    return (
-                                        <tr key={idx}>
-                                            <td>　</td>
-                                            <td>　</td>
-                                            <td className="red"><p className="red">{bid.price}</p></td>
-                                            <td className="red"><p className="red bidBlack">{bid.qty}</p></td>
-                                            <td>　</td>
-                                        </tr>
-                                    )
-                                }
+                                return (
+                                    <tr key={idx}>
+                                        <td className="transaction"><p>{this.props.completeOrders[idx].price}</p></td>
+                                        <td className="transaction"><p>{this.props.completeOrders[idx].qty}</p></td>
+                                        <td className="red"><p className="red">{bid.price}</p></td>
+                                        <td className="red"><p className="red bidBlack">{bid.qty}</p></td>
+                                        <td>　</td>
+                                    </tr>
+                                );
                             })
-                        }                                   
+                        }                                                          
                         <tr className="borderNone">
                             <td>체결가</td>
                             <td>체결량</td>
