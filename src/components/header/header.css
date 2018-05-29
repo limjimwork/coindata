@@ -33,3 +33,37 @@
 .gnb>li>a:hover, .gnb>li>a:focus {
     color: #bbcfda;
 }
+
+/* 태블릿 */
+
+@media all and (min-width:768px) and (max-width:1023px) {
+  .logo {
+    margin-left: 40px;
+  }
+
+  .gnb {
+      margin-right: 30px;
+  }
+}
+
+/* 모바일 */
+
+@media all and (max-width:767px) {
+    .logo {
+        font-size: 1.2em;
+        margin-left: 5px;
+    }
+
+    .gnb {
+        margin-right: 5px
+    }
+
+    .gnb>li {        
+        padding-top: 0.8em;
+        padding-left: 15px;
+    }
+
+    .gnb>li>a {
+        font-size: 1.1em;
+    }
+}

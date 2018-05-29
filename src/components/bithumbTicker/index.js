@@ -9,7 +9,7 @@ class BithumbTicker extends Component{
 
         return(
             <div>
-                <table>
+                <table className="tickerWrap">
                     <tbody className="tickerTable">
                         <tr>
                             <td>거래량(24H)</td>

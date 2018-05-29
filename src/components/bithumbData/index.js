@@ -93,7 +93,7 @@ class BithumbData extends Component{
     }
 
     callTransaction = () => {
-        axios.get(`https://api.bithumb.com/public/recent_transactions/${this.state.order_currency}`, {
+        axios.get(`https://api.bithumb.com/public/transaction_history/${this.state.order_currency}`, {
             params: {
                 count : 10
             }

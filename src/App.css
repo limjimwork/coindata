@@ -87,8 +87,12 @@ p.bidBlack {
   font-weight: 300;
 }
 
+.tickerWrap {
+  width: 95%;
+}
+
 .tickerTable>tr>td {
-  font-size: 0.9em;
+  font-size: 0.8em;
   line-height: 3;
 }
 
@@ -102,7 +106,34 @@ p.bidBlack {
   text-indent: 10px;
 }
 
-/* @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-} */
+/* 모바일 */
+
+@media all and (max-width:767px) {
+  .center, table {
+    width:100%;
+  }
+
+  td { 
+    font-size: 0.8em;
+  }
+  
+  p.askBlack {
+    padding-right: 3px;
+  }
+  
+  p.bidBlack {
+    padding-left: 3px;
+  }
+
+  span.hide {
+    display: none;
+  }
+  
+  .tickerTable>tr>td:first-child {
+    width: 55%;
+  }
+
+  .transaction:nth-child(2)>p {
+    text-indent: 3px;
+  }
+}

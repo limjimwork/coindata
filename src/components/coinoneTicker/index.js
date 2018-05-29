@@ -10,7 +10,7 @@ class CoinoneTicker extends Component{
 
         return(
             <div>
-                <table>
+                <table className="tickerWrap">
                     <tbody className="tickerTable">
                         <tr>
                             <td>현재가</td>
@@ -22,7 +22,7 @@ class CoinoneTicker extends Component{
                         </tr>
                         <tr>
                             <td>전일대비</td>
-                            <td><p className={compareClassName}>{compare} / <span>{compare_ratio}%</span></p></td>
+                            <td><p className={compareClassName}><span className="hide">{compare} / </span><span class="ratio">{compare_ratio}%</span></p></td>
                         </tr>
                         <tr>
                             <td>고가</td>
