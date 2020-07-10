@@ -3,6 +3,8 @@ import axios from "axios";
 import CurrencyBar from "../currencyBar";
 import CoinTable from "../coinTable";
 
+const apiUrl = "https://simpson-proxy.netlify.app/.netlify/functions/api";
+
 const currencyList = [
   "btc",
   "bch",
@@ -45,7 +47,7 @@ class CoinoneData extends Component {
 
   callOrderBook = () => {
     axios
-      .get("http://localhost:5000/orderbook", {
+      .get(`${apiUrl}/orderbook`, {
         params: {
           currency: this.state.currency,
         },
@@ -68,7 +70,7 @@ class CoinoneData extends Component {
 
   callTicker = () => {
     axios
-      .get("http://localhost:5000/ticker_utc", {
+      .get(`${apiUrl}/ticker_utc`, {
         params: {
           currency: this.state.currency,
         },
@@ -94,7 +96,7 @@ class CoinoneData extends Component {
 
   callTransaction = () => {
     axios
-      .get("http://localhost:5000/trades", {
+      .get(`${apiUrl}/trades`, {
         params: {
           currency: this.state.currency,
         },
