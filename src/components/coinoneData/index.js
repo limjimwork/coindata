@@ -3,7 +3,8 @@ import axios from "axios";
 import CurrencyBar from "../currencyBar";
 import CoinTable from "../coinTable";
 
-const apiUrl = "https://simpson-proxy.netlify.app/.netlify/functions/api";
+const apiUrl =
+  "https://simpson-proxy.netlify.app/.netlify/functions/api/coindata";
 
 const currencyList = [
   "btc",
