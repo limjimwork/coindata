@@ -116,11 +116,11 @@ class CoinoneData extends Component {
 
   componentDidMount() {
     this.callOrderBook();
-    // this.orderbookInterval = setInterval(this.callOrderBook, 5000);
+    this.orderbookInterval = setInterval(this.callOrderBook, 5000);
     this.callTicker();
-    // this.tickerInterval = setInterval(this.callTicker, 5000);
+    this.tickerInterval = setInterval(this.callTicker, 5000);
     this.callTransaction();
-    // this.transactionInterval = setInterval(this.callTransaction, 5000);
+    this.transactionInterval = setInterval(this.callTransaction, 5000);
   }
 
   componentWillUnmount() {
